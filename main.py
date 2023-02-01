@@ -8,7 +8,7 @@ import pygame
 from find_map import find_map
 
 
-cur_coords = "37.617698,55.755864"
+cur_coords = [37.617698, 55.755864]
 delta = 0.5
 cur_delta = 0.9
 cur_file = find_map(cur_coords)
@@ -33,8 +33,33 @@ while running:
                 with open("map.png", "wb") as file:
                     file.write(cur_file)
             if i.key == pygame.K_PAGEDOWN:
-                if cur_delta / delta < 115.2:
+                if cur_delta / delta < 57.7:
                     cur_delta /= delta
+                cur_file = find_map(cur_coords, cur_delta)
+                with open("map.png", "wb") as file:
+                    file.write(cur_file)
+            if i.key == pygame.K_UP:
+                if cur_coords[1] + cur_delta < 84.4:
+                    cur_coords[1] += cur_delta
+                print(cur_coords)
+                cur_file = find_map(cur_coords, cur_delta)
+                with open("map.png", "wb") as file:
+                    file.write(cur_file)
+            if i.key == pygame.K_DOWN:
+                if cur_coords[1] - cur_delta > -85.2:
+                    cur_coords[1] -= cur_delta
+                cur_file = find_map(cur_coords, cur_delta)
+                with open("map.png", "wb") as file:
+                    file.write(cur_file)
+            if i.key == pygame.K_RIGHT:
+                if cur_coords[0] + cur_delta < 85.2:
+                    cur_coords[0] += cur_delta
+                cur_file = find_map(cur_coords, cur_delta)
+                with open("map.png", "wb") as file:
+                    file.write(cur_file)
+            if i.key == pygame.K_LEFT:
+                if cur_coords[0] - cur_delta > -85.2:
+                    cur_coords[0] -= cur_delta
                 cur_file = find_map(cur_coords, cur_delta)
                 with open("map.png", "wb") as file:
                     file.write(cur_file)
