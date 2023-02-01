@@ -8,12 +8,10 @@ import pygame
 from find_map import find_map
 
 
-########
-cites = ["Москва"]
-########
-
-cur_cite = cites[0]
-cur_file = find_map(cur_cite)
+cur_coords = "37.617698,55.755864"
+delta = 0.5
+cur_delta = 0.9
+cur_file = find_map(cur_coords)
 with open("map.png", "wb") as file:
     file.write(cur_file)
 
@@ -28,6 +26,19 @@ while running:
         if i.type == pygame.QUIT:
             running = False
         if i.type == pygame.KEYDOWN:
-            pass
+            if i.key == pygame.K_PAGEUP:
+                if cur_delta * delta > 0.00010986328124:
+                    cur_delta *= delta
+                cur_file = find_map(cur_coords, cur_delta)
+                with open("map.png", "wb") as file:
+                    file.write(cur_file)
+            if i.key == pygame.K_PAGEDOWN:
+                if cur_delta / delta < 115.2:
+                    cur_delta /= delta
+                cur_file = find_map(cur_coords, cur_delta)
+                with open("map.png", "wb") as file:
+                    file.write(cur_file)
+    screen.blit(pygame.image.load("map.png"), (0, 0))
+    pygame.display.flip()
 pygame.quit()
 os.remove("map.png")

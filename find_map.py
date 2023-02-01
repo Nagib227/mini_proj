@@ -1,19 +1,9 @@
 import requests
 
 
-def find_map(cite):
-    geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
-    geocoder_params = {
-        "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
-        "geocode": cite,
-        "format": "json"}
-    response = requests.get(geocoder_api_server, params=geocoder_params)
-    if not response:
-        raise "http"
-    json_response = response.json()
-    toponym = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]
-    pos = toponym["Point"]["pos"]
-    delta = "1,1"
+def find_map(coords, delta=1):
+    pos = coords
+    delta = f"{delta},{delta}"
     map_params = {
         "ll": ",".join(pos.split()),
         "spn": delta,
