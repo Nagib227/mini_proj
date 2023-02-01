@@ -1,7 +1,6 @@
 import os
 import sys
 
-import requests
 from PIL import Image
 from random import choice
 import pygame

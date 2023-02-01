@@ -1,3 +1,6 @@
+import requests
+
+
 def find_map(cite):
     geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
     geocoder_params = {
